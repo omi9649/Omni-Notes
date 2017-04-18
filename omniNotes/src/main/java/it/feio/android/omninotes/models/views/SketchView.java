@@ -112,22 +112,22 @@ public class SketchView extends View implements OnTouchListener {
             bitmap = bitmap.copy(bitmapConfig, true);
         }
         this.bitmap = bitmap;
-//		this.bitmap = getScaledBitmap(mActivity, bitmap);
-//		mCanvas = new Canvas(bitmap);
+//this.bitmap = getScaledBitmap(mActivity, bitmap);
+//mCanvas = new Canvas(bitmap);
     }
 
 
-//	private Bitmap getScaledBitmap(Activity mActivity, Bitmap bitmap) {
-//		DisplayMetrics display = new DisplayMetrics();
-//		mActivity.getWindowManager().getDefaultDisplay().getMetrics(display);
-//		int screenWidth = display.widthPixels;
-//		int screenHeight = display.heightPixels;
-//		float scale = bitmap.getWidth() / screenWidth > bitmap.getHeight() / screenHeight ? bitmap.getWidth() / 
+//private Bitmap getScaledBitmap(Activity mActivity, Bitmap bitmap) {
+//DisplayMetrics display = new DisplayMetrics();
+//mActivity.getWindowManager().getDefaultDisplay().getMetrics(display);
+//int screenWidth = display.widthPixels;
+//int screenHeight = display.heightPixels;
+//float scale = bitmap.getWidth() / screenWidth > bitmap.getHeight() / screenHeight ? bitmap.getWidth() / 
 // screenWidth : bitmap.getHeight() / screenHeight;
-//		int scaledWidth = (int) (bitmap.getWidth() / scale);
-//		int scaledHeight = (int) (bitmap.getHeight() / scale);
-//		return Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
-//	}
+//int scaledWidth = (int) (bitmap.getWidth() / scale);
+//int scaledHeight = (int) (bitmap.getHeight() / scale);
+//return Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
+//}
 
 
     @Override
@@ -145,19 +145,19 @@ public class SketchView extends View implements OnTouchListener {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                touch_start(x, y);
+                touchStart(x, y);
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
-                touch_move(x, y);
+                touchMove(x, y);
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
-                touch_up();
+                touchUp();
                 invalidate();
                 break;
-			default:
-				Log.e(Constants.TAG, "Wrong element choosen: " + event.getAction());
+default:
+Log.e(Constants.TAG, "Wrong element choosen: " + event.getAction());
         }
         return true;
     }
@@ -177,7 +177,7 @@ public class SketchView extends View implements OnTouchListener {
     }
 
 
-    private void touch_start(float x, float y) {
+    private void touchStart(float x, float y) {
         // Clearing undone list
         undonePaths.clear();
 
@@ -201,14 +201,14 @@ public class SketchView extends View implements OnTouchListener {
     }
 
 
-    private void touch_move(float x, float y) {
+    private void touchMove(float x, float y) {
         m_Path.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
         mX = x;
         mY = y;
     }
 
 
-    private void touch_up() {
+    private void touchUp() {
         m_Path.lineTo(mX, mY);
         // Avoids that a sketch with just erasures is saved
         if (!(paths.size() == 0 && mode == ERASER && bitmap == null)) {
@@ -297,8 +297,8 @@ public class SketchView extends View implements OnTouchListener {
             case ERASER:
                 eraserSize = size;
                 break;
-			default:
-				Log.e(Constants.TAG, "Wrong element choosen: " + eraserOrStroke);
+default:
+Log.e(Constants.TAG, "Wrong element choosen: " + eraserOrStroke);
         }
 
     }
