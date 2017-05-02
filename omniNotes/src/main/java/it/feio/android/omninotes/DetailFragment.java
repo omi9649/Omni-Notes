@@ -1528,6 +1528,7 @@ public class DetailFragment extends BaseFragment implements OnReminderPickedList
 					break;
 				default:
 					Log.e(Constants.TAG, "Wrong element choosen: " + requestCode);
+					break;
 			}
 		}
 	}
