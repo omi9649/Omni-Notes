@@ -38,6 +38,16 @@ public class SecurityTest {
         String encryptedText = Security.encrypt(TEXT, PASS);
         assertFalse(TEXT.equals(encryptedText));
     }
+	
+	@Test
+	public void testDoubleEncrypt(){
+		String encryptedText = Security.encrypt(TEXT, PASS);
+		String doubleEncryptedText = Security.encrypt(encryptedText, PASS);
+		String firstDescript = Security.decrypt(doubleEncryptedText, PASS); 
+		
+		assertEquals(TEXT, Security.decrypt(firstDescript, PASS));	
+        
+	}
 
 	@Test
     public void testDecrypt(){
