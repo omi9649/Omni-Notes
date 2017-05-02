@@ -36,7 +36,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -125,31 +124,6 @@ public class UpgradeProcessor {
 
 
 	/**
-	 * Upgrades all the old audio attachments to the new format 3gpp to avoid to exchange them for videos
-	 */
-	private void onUpgradeTo480() {
-		final DbHelper dbHelper = DbHelper.getInstance();
-		for (Attachment attachment : dbHelper.getAllAttachments()) {
-			if ("audio/3gp".equals(attachment.getMime_type()) || "audio/3gpp".equals(attachment.getMime_type
-					())) {
-
-				// File renaming
-				File from = new File(attachment.getUriPath());
-				FilenameUtils.getExtension(from.getName());
-				File to = new File(from.getParent(), from.getName().replace(FilenameUtils.getExtension(from
-						.getName()), Constants.MIME_TYPE_AUDIO_EXT));
-				from.renameTo(to);
-
-				// Note's attachment update
-				attachment.setUri(Uri.fromFile(to));
-				attachment.setMime_type(Constants.MIME_TYPE_AUDIO);
-				dbHelper.updateAttachment(attachment);
-			}
-		}
-	}
-
-
-	/**
 	 * Reschedule reminders after upgrade
 	 */
 	private void onUpgradeTo482() {
@@ -157,24 +131,4 @@ public class UpgradeProcessor {
 			ReminderHelper.addReminder(OmniNotes.getAppContext(), note);
 		}
 	}
-
-
-	/**
-	 * Ensures that no duplicates will be found during the creation-to-id transition
-	 */
-	private void onUpgradeTo501() {
-		List<Long> creations = new ArrayList<>();
-		for (Note note : DbHelper.getInstance().getAllNotes(false)) {
-			if (creations.contains(note.getCreation())) {
-
-				ContentValues values = new ContentValues();
-				values.put(DbHelper.KEY_CREATION, note.getCreation() + (long) (Math.random() * 999));
-				DbHelper.getInstance().getDatabase().update(DbHelper.TABLE_NOTES, values, DbHelper.KEY_TITLE +
-						" = ? AND " + DbHelper.KEY_CREATION + " = ? AND " + DbHelper.KEY_CONTENT + " = ?", new String[]{note
-						.getTitle(), String.valueOf(note.getCreation()), note.getContent()});
-			}
-			creations.add(note.getCreation());
-		}
-	}
-
 }
