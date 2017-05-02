@@ -17,6 +17,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'jacoco'
 
 android {
 
@@ -45,6 +46,7 @@ android {
         versionCode Integer.parseInt(project.VERSION_CODE)
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+
         multiDexEnabled true
     }
 
@@ -72,6 +74,9 @@ android {
                 signingConfig signingConfigs.signConfig
             }
 
+        }
+        debug {
+            testCoverageEnabled true
         }
     }
 

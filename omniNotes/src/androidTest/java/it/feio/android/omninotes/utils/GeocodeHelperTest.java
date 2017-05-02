@@ -31,8 +31,8 @@ public class GeocodeHelperTest extends InstrumentationTestCase {
     @Test
     public void testGetAddressFromCoordinates() throws IOException {
         if (ConnectionManager.internetAvailable(OmniNotes.getAppContext())) {
-            Double LAT = 43.799328;
-            Double LON = 11.171552;
+            Double LAT = 47.4727579;
+            Double LON = 19.0597071;
             String address = GeocodeHelper.getAddressFromCoordinates(OmniNotes.getAppContext(), LAT, LON);
             Assert.assertTrue(address.length() > 0);
         }
