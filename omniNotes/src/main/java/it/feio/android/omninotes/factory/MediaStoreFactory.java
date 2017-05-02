@@ -16,6 +16,8 @@ public class MediaStoreFactory {
                 return  MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
             case "audio":
                 return  MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+			default:
+				break;
         }
         return null;
     }
