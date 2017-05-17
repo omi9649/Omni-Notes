@@ -39,5 +39,7 @@ public class DbHelperTest extends BaseAndroidTestCase {
         dbHelper.updateNote(note2, true);
         assertEquals(2, dbHelper.getNotesByTag("#tag").size());
         assertEquals(1, dbHelper.getNotesByTag("#tagged").size());
+
+
     }
 }

@@ -23,14 +23,16 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.TextUtils;
-import it.feio.android.omninotes.R;
-import it.feio.android.omninotes.db.DbHelper;
-import it.feio.android.omninotes.helpers.date.DateHelper;
-import it.feio.android.omninotes.models.Note;
+import android.util.Log;
 
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import it.feio.android.omninotes.R;
+import it.feio.android.omninotes.db.DbHelper;
+import it.feio.android.omninotes.helpers.date.DateHelper;
+import it.feio.android.omninotes.models.Note;
 
 
 public class TextHelper {
@@ -41,6 +43,8 @@ public class TextHelper {
      */
     public static Spanned[] parseTitleAndContent(Context mContext, Note note) {
 
+        Log.v("MyTag", "asd");
+        System.out.println("asd");
         final int CONTENT_SUBSTRING_LENGTH = 300;
 
 		String titleText = note.getTitle();
@@ -60,6 +64,8 @@ public class TextHelper {
         // Replacing checkmarks symbols with html entities
         Spanned contentSpanned;
         if (note.isChecklist() && !TextUtils.isEmpty(contentText)) {
+            System.out.println("asd");
+            Log.v("MyTag", "asd");
 			contentSpanned = Html.fromHtml(contentText
                     .replace(it.feio.android.checklistview.interfaces.Constants.CHECKED_SYM,
 							it.feio.android.checklistview.interfaces.Constants.CHECKED_ENTITY)

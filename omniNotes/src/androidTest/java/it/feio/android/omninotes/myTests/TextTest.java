@@ -22,8 +22,9 @@ public class TextTest{
     public void parseTitleAndContextTest(){
 
         Note note = new Note();
-        note.setTitle("simple title");
-        note.setContent("content with #tag");
+        note.setTitle("checked sym");
+        note.setChecklist(true);
+        note.setContent("[x] content");
         Context test = new RenamingDelegatingContext(InstrumentationRegistry.getTargetContext(), "Mytest_");
         DbHelper dbHelper = DbHelper.getInstance(test);
         dbHelper.updateNote(note, true);
@@ -31,6 +32,6 @@ public class TextTest{
         Spanned [] result = TextHelper.parseTitleAndContent(test, note);
 
         assertEquals(result.length, 2);
-
+        assertEquals(result[1].toString(), "✓ content");
     }
 }
